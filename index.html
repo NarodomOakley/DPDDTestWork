@@ -20,6 +20,23 @@
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 	  	attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(mymap);
+	    
+	    	var google = L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+	    subdomains:['mt0','mt1','mt2','mt3'],
+            attribution: 'Imagery &copy; 2021 Google, Map data &copy; 2021 <a target="_blank" href="https://www.google.com/intl/en_uk/help/terms_maps/">Terms</a>',
+            maxNativeZoom: 18,
+	    maxZoom: 22
+        });
+	
+	var surface = L.tileLayer('https://geoffrowland.github.io/Surface-Street/{z}/{x}/{y}.png', {
+	    tms: true, 
+	    opacity: 1.0,
+	    maxNativeZoom: 18,	
+	    maxZoom: 20,
+	    minZoom: 12,
+	    attribution: 'LiDAR 1m DSM Environment Agency OGL &copy; Crown Copyright 2021'
+        });
+	    
 	    var marker = L.marker([51.129867 , -2.7334861]).addTo(mymap);
 	    var marker1 = L.marker([51.130062 , -2.7332360]).addTo(mymap);
 	    marker1.bindPopup("<img style='width: 200px' src='cblock.jpg'><p><b>C Block</b></p><br>Engineering");
@@ -30,6 +47,17 @@
 	    var marker4 = L.marker([51.130630 , -2.7328773]).addTo(mymap);
 	    marker4.bindPopup("<img style='width: 200px' src='strode-theatre-studio.jpg'><p><b>Strode Theatre</b></p><br>Theatre");
 	    //marker.bindPopup("<b>C Block</b><br>T-Level Digital").openPopup();
+	    
+	        var college = L.layerGroup([marker, marker1, marker2, marker3, marker4]).addTo(mymap);
+      
+	var baseMaps = {
+           "OSM": osm,
+           "Google": google
+        };
+	var overlayMaps = {
+	    "Surface": surface,
+            "College": college
+        };
 	    mymap.addControl(new L.Control.Fullscreen());
     </script>
   </body>    
